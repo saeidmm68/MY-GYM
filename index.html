@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MY GYM">
+<meta name="theme-color" content="#1a7a2e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>MY GYM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4f8;
+  --surface: #ffffff;
+  --surface2: #f5f7fa;
+  --surface3: #eaecf0;
+  --accent: #1a7a2e;
+  --accent-light: #e8f5e9;
+  --accent2: #0066cc;
+  --accent2-light: #e3f2fd;
+  --accent3: #cc3300;
+  --accent3-light: #fce8e6;
+  --text: #111827;
+  --text2: #374151;
+  --text3: #9ca3af;
+  --border: #e5e7eb;
+  --success: #1a7a2e;
+  --warning: #b45309;
+  --warning-light: #fef3c7;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+}
+body.dark {
+  --bg: #0a0a0f;
+  --surface: #13131a;
+  --surface2: #1c1c26;
+  --surface3: #242430;
+  --accent: #a3e635;
+  --accent-light: rgba(163,230,53,0.1);
+  --accent2: #38bdf8;
+  --accent2-light: rgba(56,189,248,0.1);
+  --accent3: #f97316;
+  --accent3-light: rgba(249,115,22,0.1);
+  --text: #f9fafb;
+  --text2: #d1d5db;
+  --text3: #6b7280;
+  --border: #2a2a38;
+  --success: #a3e635;
+  --warning: #fbbf24;
+  --warning-light: rgba(251,191,36,0.1);
+  --danger: #f87171;
+  --danger-light: rgba(248,113,113,0.1);
+  --shadow: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Vazirmatn',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background 0.3s,color 0.3s}
+
+/* HEADER */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+.header-left{display:flex;align-items:center;gap:10px}
+.logo{width:36px;height:36px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.logo-text{font-size:16px;font-weight:800;color:var(--text)}
+.logo-sub{font-size:10px;color:var(--text3);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:8px}
+.theme-btn{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-family:'Vazirmatn',sans-serif;font-size:12px;color:var(--text2);cursor:pointer;transition:all 0.2s}
+.notif-btn{width:36px;height:36px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+
+/* NAV */
+.nav{background:var(--surface);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;box-shadow:0 -2px 10px rgba(0,0,0,0.08)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;cursor:pointer;border:none;background:none;font-family:'Vazirmatn',sans-serif;color:var(--text3);transition:all 0.2s;gap:3px}
+.nav-item.active{color:var(--accent)}
+.nav-item svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nav-item span{font-size:10px;font-weight:600}
+
+/* PAGES */
+.page{display:none;padding:16px;max-width:480px;margin:0 auto;padding-bottom:90px}
+.page.active{display:block}
+
+/* CARDS */
+.card{background:var(--surface);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card-title{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-green{background:var(--accent-light);color:var(--accent)}
+.badge-blue{background:var(--accent2-light);color:var(--accent2)}
+.badge-red{background:var(--danger-light);color:var(--danger)}
+.badge-yellow{background:var(--warning-light);color:var(--warning)}
+
+/* ALERTS */
+.alert{padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.7;margin-bottom:10px;display:flex;gap:10px;align-items:flex-start}
+.alert-warning{background:var(--warning-light);border:1px solid rgba(180,83,9,0.2);color:var(--warning)}
+.alert-success{background:var(--accent-light);border:1px solid rgba(26,122,46,0.2);color:var(--accent)}
+.alert-info{background:var(--accent2-light);border:1px solid rgba(0,102,204,0.2);color:var(--accent2)}
+.alert-danger{background:var(--danger-light);border:1px solid rgba(220,38,38,0.2);color:var(--danger)}
+
+/* HOME PAGE */
+.profile-card{background:linear-gradient(135deg,var(--accent),#2d9e47);border-radius:16px;padding:20px;margin-bottom:12px;color:white}
+.profile-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.avatar{width:56px;height:56px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;border:2px solid rgba(255,255,255,0.4)}
+.profile-name{font-size:18px;font-weight:800}
+.profile-sub{font-size:12px;opacity:0.8;margin-top:2px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat-item{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px;text-align:center}
+.stat-val{font-size:20px;font-weight:800}
+.stat-lbl{font-size:10px;opacity:0.8;margin-top:2px}
+
+/* TODAY WORKOUT CARD */
+.today-card{background:var(--surface);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border-right:4px solid var(--accent)}
+.today-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.today-title{font-size:20px;font-weight:800;margin-bottom:4px}
+.today-sub{font-size:13px;color:var(--text3);margin-bottom:14px}
+.start-btn{width:100%;padding:14px;background:var(--accent);border:none;border-radius:12px;font-family:'Vazirmatn',sans-serif;font-size:16px;font-weight:800;color:white;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.start-btn:active{transform:scale(0.98)}
+
+/* PHASE CARD */
+.phase-bar{display:flex;border-radius:10px;overflow:hidden;margin:10px 0}
+.phase-item{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-weight:700;cursor:pointer}
+.phase-item.current{outline:2px solid var(--accent);outline-offset:-2px}
+.ph1{background:#dbeafe;color:#1d4ed8}
+.ph2{background:#dcfce7;color:#15803d}
+.ph3{background:#fee2e2;color:#dc2626}
+.ph4{background:#f3e8ff;color:#7e22ce}
+
+/* REMINDERS */
+.reminder-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.reminder-item:last-child{border-bottom:none}
+.reminder-time{font-size:13px;font-weight:700;color:var(--accent);min-width:44px;direction:ltr;text-align:left}
+.reminder-text{font-size:13px;color:var(--text2);flex:1}
+.reminder-icon{font-size:18px;width:32px;text-align:center}
+
+/* BODY ANALYSIS */
+.body-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:8px}
+.body-stat{background:var(--surface2);border-radius:10px;padding:12px}
+.body-stat-val{font-size:18px;font-weight:800;color:var(--accent)}
+.body-stat-lbl{font-size:11px;color:var(--text3);margin-top:2px}
+.body-stat-status{font-size:10px;margin-top:4px}
+
+/* PROGRAM PAGE */
+.week-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.week-info{flex:1}
+.week-num{font-size:20px;font-weight:800}
+.week-phase{font-size:12px;color:var(--text3);margin-top:2px}
+.week-nav{display:flex;gap:6px}
+.week-btn{width:34px;height:34px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.week-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.day-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.day-item{background:var(--surface);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;cursor:pointer;border:2px solid transparent;transition:all 0.2s}
+.day-item:hover,.day-item.today-item{border-color:var(--accent)}
+.day-item.rest{opacity:0.6;cursor:default}
+.day-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.day-content{flex:1}
+.day-name{font-size:15px;font-weight:700}
+.day-focus{font-size:12px;color:var(--text3);margin-top:2px}
+.day-arrow{font-size:18px;color:var(--text3)}
+
+/* WORKOUT VIEW */
+.workout-view{display:none}
+.workout-view.open{display:block}
+.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--accent);font-family:'Vazirmatn',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:14px;padding:0}
+.workout-header-card{background:var(--accent);border-radius:16px;padding:16px;margin-bottom:12px;color:white}
+.workout-day-title{font-size:22px;font-weight:800}
+.workout-day-sub{font-size:13px;opacity:0.85;margin-top:4px}
+.warmup-box{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px;margin-top:12px;font-size:12px;line-height:1.6}
+
+/* EXERCISE ITEMS */
+.ex-item{background:var(--surface);border-radius:14px;margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border)}
+.ex-header{display:flex;align-items:center;padding:14px;cursor:pointer;gap:10px;transition:background 0.2s}
+.ex-header:active{background:var(--surface2)}
+.ex-num{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;flex-shrink:0}
+.ex-info{flex:1}
+.ex-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.ex-meta{display:flex;gap:10px;font-size:11px;color:var(--text3)}
+.ex-meta span{display:flex;align-items:center;gap:3px}
+.ex-chevron{font-size:14px;color:var(--text3);transition:transform 0.2s;flex-shrink:0}
+.ex-item.open .ex-chevron{transform:rotate(180deg)}
+
+.ex-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--border)}
+.ex-item.open .ex-detail{display:block}
+
+.ex-muscle{display:flex;align-items:center;gap:6px;margin:10px 0;font-size:12px;color:var(--text3)}
+
+.gif-container{width:100%;background:var(--surface2);border-radius:10px;overflow:hidden;margin:10px 0;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative}
+.gif-container img{width:100%;height:100%;object-fit:contain}
+.gif-loading{font-size:12px;color:var(--text3);text-align:center;padding:20px}
+
+.tips-section{margin:10px 0}
+.tips-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.tip-item{display:flex;gap:8px;font-size:13px;color:var(--text2);margin-bottom:6px;line-height:1.6}
+.tip-item::before{content:"•";color:var(--accent);flex-shrink:0;font-weight:700}
+.warning-tip{color:var(--danger)}
+
+.rest-btn{width:100%;padding:10px;background:var(--accent-light);border:1px solid rgba(26,122,46,0.3);border-radius:10px;color:var(--accent);font-family:'Vazirmatn',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px;transition:all 0.2s}
+.rest-btn:active{transform:scale(0.98)}
+
+.complete-workout-btn{width:100%;padding:16px;background:var(--accent);border:none;border-radius:14px;font-family:'Vazirmatn',sans-serif;font-size:16px;font-weight:800;color:white;cursor:pointer;margin:16px 0;transition:all 0.2s}
+.missed-btn{width:100%;padding:12px;background:var(--danger-light);border:1px solid rgba(220,38,38,0.3);border-radius:12px;color:var(--danger);font-family:'Vazirmatn',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px}
+
+/* PHASE INFO */
+.phase-info-card{background:var(--accent-light);border:1px solid rgba(26,122,46,0.2);border-radius:12px;padding:14px;margin-bottom:12px}
+.phase-info-title{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:6px}
+.phase-info-text{font-size:12px;color:var(--text2);line-height:1.7}
+
+/* TIMER */
+.timer-overlay{position:fixed;bottom:70px;left:16px;right:16px;background:var(--surface);border-radius:16px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);border:1px solid var(--border);z-index:200;display:none;max-width:448px;margin:0 auto}
+.timer-overlay.show{display:block}
+.timer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.timer-label{font-size:12px;color:var(--text3);font-weight:600}
+.timer-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--text3)}
+.timer-display{font-size:48px;font-weight:800;color:var(--accent);text-align:center;direction:ltr;margin:6px 0;font-variant-numeric:tabular-nums}
+.timer-progress{height:4px;background:var(--surface3);border-radius:2px;margin-bottom:12px;overflow:hidden}
+.timer-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.5s linear}
+.timer-presets{display:flex;gap:6px;margin-bottom:10px;justify-content:center}
+.preset{padding:6px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;font-family:'Vazirmatn',sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);transition:all 0.2s}
+.preset:hover,.preset.active-preset{background:var(--accent);border-color:var(--accent);color:white}
+.timer-btns{display:flex;gap:8px}
+.t-btn{flex:1;padding:12px;border-radius:10px;border:none;font-family:'Vazirmatn',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.t-start{background:var(--accent);color:white}
+.t-skip{background:var(--surface2);color:var(--text2)}
+
+/* NUTRITION PAGE */
+.meal-time-label{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.meal-card{background:var(--surface);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:var(--shadow)}
+.meal-title{font-size:15px;font-weight:700;margin-bottom:10px}
+.meal-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.meal-row:last-child{border-bottom:none}
+.meal-protein{font-size:12px;font-weight:700;color:var(--accent)}
+.macro-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.macro-box{background:var(--surface2);border-radius:10px;padding:12px;text-align:center}
+.macro-val{font-size:18px;font-weight:800}
+.macro-lbl{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* SUPPLEMENT PAGE */
+.supp-card{background:var(--surface);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:var(--shadow);display:flex;gap:12px}
+.supp-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.supp-name{font-size:14px;font-weight:800;margin-bottom:3px}
+.supp-dose{font-size:12px;color:var(--text2);margin-bottom:5px}
+.supp-timing{font-size:12px;color:var(--text3);line-height:1.6}
+
+/* MEDICAL PAGE */
+.lab-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);align-items:center;font-size:12px}
+.progress-bar{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.5s}
+
+/* POSTURE ALERT */
+.posture-card{background:var(--danger-light);border:1px solid rgba(220,38,38,0.2);border-radius:14px;padding:14px;margin-bottom:12px}
+.posture-title{font-size:14px;font-weight:800;color:var(--danger);margin-bottom:8px}
+.posture-text{font-size:13px;color:var(--text2);line-height:1.7}
+
+/* SECTION TITLE */
+.section-title{font-size:20px;font-weight:800;margin-bottom:4px}
+.section-sub{font-size:13px;color:var(--text3);margin-bottom:16px}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:16px 0}
+.divider-label{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px}
+
+/* NOTIFICATION PERMISSION */
+.notif-card{background:linear-gradient(135deg,#0066cc,#0088ff);border-radius:14px;padding:16px;margin-bottom:12px;color:white;display:none}
+.notif-card.show{display:block}
+.notif-btn-allow{background:white;color:#0066cc;border:none;border-radius:10px;padding:10px 20px;font-family:'Vazirmatn',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;width:100%}
+
+/* SCROLL */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging-compat.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">💪</div>
+    <div>
+      <div class="logo-text">MY GYM</div>
+      <div class="logo-sub" id="headerDate">بارگذاری...</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 تاریک</button>
+    <div class="notif-btn" onclick="requestNotif()" title="نوتیفیکیشن">🔔</div>
+  </div>
+</div>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="page-home" class="page active">
+
+  <!-- Notification Permission Card -->
+  <div class="notif-card" id="notifCard">
+    <div style="font-size:16px;font-weight:800;margin-bottom:6px">🔔 یادآوری‌های روزانه</div>
+    <div style="font-size:13px;opacity:0.9;line-height:1.6">برای دریافت یادآوری آب، تغذیه، مکمل‌ها و تمرین، اجازه نوتیفیکیشن بده.</div>
+    <button class="notif-btn-allow" onclick="requestNotif()">فعال کردن یادآوری‌ها</button>
+  </div>
+
+  <!-- Profile -->
+  <div class="profile-card">
+    <div class="profile-top">
+      <div class="avatar">س</div>
+      <div>
+        <div class="profile-name">سعید محمدی‌منش</div>
+        <div class="profile-sub">۳۶ ساله • ۶۸.۴ کیلو • ۱۷۵ سانتی‌متر</div>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-val">۲۲.۱</div>
+        <div class="stat-lbl">BMI</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">۱۷.۷٪</div>
+        <div class="stat-lbl">چربی بدن</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">۵۳.۵</div>
+        <div class="stat-lbl">عضله (کیلو)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today -->
+  <div id="todayCard"></div>
+
+  <!-- Phase -->
+  <div class="card">
+    <div class="card-title">فاز تمرینی</div>
+    <div class="phase-bar">
+      <div class="phase-item ph1" id="ph1">آداپتاسیون<br><small>۱-۳</small></div>
+      <div class="phase-item ph2" id="ph2">هایپرتروفی<br><small>۴-۸</small></div>
+      <div class="phase-item ph3" id="ph3">اضافه‌بار<br><small>۹-۱۰</small></div>
+      <div class="phase-item ph4" id="ph4">دیلود<br><small>۱۱</small></div>
+    </div>
+    <div id="phaseDesc" class="phase-info-card"></div>
+  </div>
+
+  <!-- Body Analysis Summary -->
+  <div class="card">
+    <div class="card-title">آنالیز بدنی</div>
+    <div class="body-grid">
+      <div class="body-stat">
+        <div class="body-stat-val">۱۷.۷٪</div>
+        <div class="body-stat-lbl">چربی بدن</div>
+        <div class="body-stat-status"><span class="badge badge-yellow">کمی بالا</span></div>
+      </div>
+      <div class="body-stat">
+        <div class="body-stat-val">۵۳.۵ kg</div>
+        <div class="body-stat-lbl">توده عضلانی</div>
+        <div class="body-stat-status"><span class="badge badge-blue">استاندارد</span></div>
+      </div>
+      <div class="body-stat">
+        <div class="body-stat-val">APT</div>
+        <div class="body-stat-lbl">پوسچر لگن</div>
+        <div class="body-stat-status"><span class="badge badge-red">نیاز به اصلاح</span></div>
+      </div>
+      <div class="body-stat">
+        <div class="body-stat-val">۱۴۳۸</div>
+        <div class="body-stat-lbl">متابولیسم پایه</div>
+        <div class="body-stat-status"><span class="badge badge-green">عالی</span></div>
+      </div>
+    </div>
+    <div class="alert alert-warning">
+      <span>⚠️</span>
+      <div><strong>هدف اصلاح شده:</strong> Body Recomposition — چربی از ۱۷.۷٪ به ۱۴٪ + عضله از ۵۳.۵ به ۵۷ کیلو</div>
+    </div>
+  </div>
+
+  <!-- Daily Reminders -->
+  <div class="card">
+    <div class="card-title">برنامه امروز</div>
+    <div id="dailyReminders"></div>
+  </div>
+
+</div>
+
+<!-- ===== PROGRAM PAGE ===== -->
+<div id="page-program" class="page">
+
+  <!-- Overview -->
+  <div id="program-overview">
+    <div class="week-header">
+      <div class="week-info">
+        <div class="week-num" id="weekNum">هفته ۱</div>
+        <div class="week-phase" id="weekPhase">فاز آداپتاسیون</div>
+      </div>
+      <div class="week-nav">
+        <button class="week-btn" onclick="changeWeek(-1)">›</button>
+        <button class="week-btn" onclick="changeWeek(1)">‹</button>
+      </div>
+    </div>
+
+    <div id="weekPhaseCard" class="phase-info-card"></div>
+
+    <div class="day-list" id="dayList"></div>
+
+    <div class="card">
+      <div class="card-title">⚠️ نکات ستون فقرات</div>
+      <div class="tip-item warning-tip">ددلیفت هالتر سنگین ممنوع</div>
+      <div class="tip-item warning-tip">اسکوات هالتر با بار سنگین ممنوع</div>
+      <div class="tip-item warning-tip">چرخش ستون فقرات زیر بار ممنوع مطلق</div>
+      <div class="tip-item warning-tip">هر حرکتی با درد کمر — فوری متوقف کن</div>
+    </div>
+  </div>
+
+  <!-- Workout Detail -->
+  <div class="workout-view" id="workoutView">
+    <button class="back-btn" onclick="backToProgram()">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      بازگشت
+    </button>
+    <div id="workoutContent"></div>
+  </div>
+
+</div>
+
+<!-- ===== NUTRITION PAGE ===== -->
+<div id="page-nutrition" class="page">
+  <div class="section-title">تغذیه</div>
+  <div class="section-sub">روزانه — بر اساس Body Recomposition</div>
+
+  <div class="card">
+    <div class="card-title">هدف روزانه</div>
+    <div class="macro-row">
+      <div class="macro-box">
+        <div class="macro-val" style="color:var(--accent)">۱۵۰g</div>
+        <div class="macro-lbl">پروتئین</div>
+      </div>
+      <div class="macro-box">
+        <div class="macro-val" style="color:var(--accent2)">۲۸۰g</div>
+        <div class="macro-lbl">کربوهیدرات</div>
+      </div>
+      <div class="macro-box">
+        <div class="macro-val" style="color:var(--warning)">۷۰g</div>
+        <div class="macro-lbl">چربی سالم</div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:24px;font-weight:800;color:var(--accent)">۲۴۰۰-۲۶۰۰</div>
+    <div style="text-align:center;font-size:12px;color:var(--text3);margin-top:4px">کالری روزانه</div>
+  </div>
+
+  <div class="alert alert-warning">
+    <span>⚠️</span>
+    <div>با توجه به چربی ۱۷.۷٪ — کالری رو نسبت به برنامه قبلی ۳۰۰ کالری کاهش دادم. هدف Body Recompositionه نه فقط افزایش وزن.</div>
+  </div>
+
+  <!-- Meals -->
+  <div class="divider-label">روز تمرین</div>
+
+  <div class="meal-card">
+    <div class="meal-time-label">☀️ ۰۷:۰۰ — صبحانه (الزامی!)</div>
+    <div class="meal-title">صبحانه پروتئینی</div>
+    <div class="meal-row"><span>۳ تخم‌مرغ آبپز/نیمرو</span><span class="meal-protein">۱۸g</span></div>
+    <div class="meal-row"><span>ماست یونانی (۱۵۰g)</span><span class="meal-protein">۱۲g</span></div>
+    <div class="meal-row"><span>نان سبوس‌دار (۱ برش)</span><span class="meal-protein">۴g</span></div>
+    <div class="meal-row"><span>یک مشت گردو یا بادام</span><span class="meal-protein">۴g</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:700">جمع: ~۳۸ گرم پروتئین</div>
+  </div>
+
+  <div class="meal-card">
+    <div class="meal-time-label">🌞 ۱۲:۳۰ — ناهار</div>
+    <div class="meal-title">وعده اصلی</div>
+    <div class="meal-row"><span>۲۰۰g مرغ یا گوشت</span><span class="meal-protein">۴۵g</span></div>
+    <div class="meal-row"><span>برنج (۱.۵ کف دست)</span><span class="meal-protein">۴g</span></div>
+    <div class="meal-row"><span>سالاد + روغن زیتون</span><span class="meal-protein">۲g</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:700">جمع: ~۵۱ گرم پروتئین</div>
+  </div>
+
+  <div class="meal-card">
+    <div class="meal-time-label">🍎 ۱۵:۰۰ — میان‌وعده</div>
+    <div class="meal-title">میوه + پروتئین</div>
+    <div class="meal-row"><span>سیب یا پرتقال (۱ عدد)</span><span class="meal-protein">۰g</span></div>
+    <div class="meal-row"><span>۲ تخم‌مرغ آبپز</span><span class="meal-protein">۱۲g</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:700">جمع: ~۱۲ گرم پروتئین</div>
+  </div>
+
+  <div class="meal-card">
+    <div class="meal-time-label">🏋️ ۱۸:۰۰ — قبل تمرین</div>
+    <div class="meal-title">انرژی تمرین</div>
+    <div class="meal-row"><span>موز (۲ عدد) یا خرما (۵ عدد)</span><span class="meal-protein">۱g</span></div>
+    <div class="meal-row"><span>ماست کم‌چرب (۱۰۰g)</span><span class="meal-protein">۶g</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:700">جمع: ~۷ گرم پروتئین</div>
+  </div>
+
+  <div class="meal-card" style="border:2px solid var(--accent)">
+    <div class="meal-time-label">⚡ ۱۸:۵۰ — قبل تمرین</div>
+    <div class="meal-title">☕ اسپرسو (اختیاری)</div>
+    <div class="meal-row"><span>یک فنجان اسپرسو</span><span style="font-size:12px;color:var(--accent);font-weight:700">Pre-workout طبیعی</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--text3)">۳۰ دقیقه قبل تمرین — اوج اثر دقیقاً موقع تمرین</div>
+  </div>
+
+  <div class="meal-card">
+    <div class="meal-time-label">💪 ۲۱:۰۰ — بعد تمرین (فوری)</div>
+    <div class="meal-title">ریکاوری عضلانی</div>
+    <div class="meal-row"><span>وی پروتئین (۱ سرویس)</span><span class="meal-protein">۲۵g</span></div>
+    <div class="meal-row"><span>کراتین ۵ گرم</span><span class="meal-protein">—</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--text3)">در عرض ۳۰-۶۰ دقیقه بعد از تمرین</div>
+  </div>
+
+  <div class="meal-card">
+    <div class="meal-time-label">🌙 ۲۲:۰۰ — شام</div>
+    <div class="meal-title">وعده شب</div>
+    <div class="meal-row"><span>۱۵۰g مرغ یا گوشت</span><span class="meal-protein">۳۲g</span></div>
+    <div class="meal-row"><span>سبزیجات بخارپز</span><span class="meal-protein">۳g</span></div>
+    <div class="meal-row"><span>سیب‌زمینی فر (کوچک)</span><span class="meal-protein">۳g</span></div>
+    <div style="margin-top:8px;font-size:12px;color:var(--accent);font-weight:700">جمع: ~۳۸ گرم پروتئین</div>
+  </div>
+
+  <div class="card" style="border:2px solid var(--accent)">
+    <div style="text-align:center;font-size:28px;font-weight:900;color:var(--accent)">~۱۴۶ گرم</div>
+    <div style="text-align:center;font-size:12px;color:var(--text3);margin-top:4px">پروتئین روزانه ✅</div>
+  </div>
+
+  <div class="divider-label">روز استراحت</div>
+  <div class="alert alert-info">
+    <span>ℹ️</span>
+    <div>روز استراحت همان برنامه غذایی رو داری — فقط میان‌وعده قبل تمرین و وی بعد تمرین رو نمیخوری. کالری کمی کمتر میشه.</div>
+  </div>
+
+  <div class="divider-label">نکات تغذیه</div>
+  <div class="card">
+    <div class="tip-item">بین کلسیم و قهوه حداقل ۱ ساعت فاصله بذار</div>
+    <div class="tip-item">الکل فقط روزهای دوشنبه یا پنجشنبه — نه روز تمرین</div>
+    <div class="tip-item">وی پروتئین بدون sucralose و aspartame بگیر (قند مصنوعی نداری)</div>
+    <div class="tip-item">روزانه ۳ لیتر آب — روز تمرین ۳.۵ لیتر</div>
+    <div class="tip-item">میوه: بهترین وقت ساعت ۱۵:۰۰ یا قبل تمرین</div>
+  </div>
+</div>
+
+<!-- ===== SUPPLEMENTS PAGE ===== -->
+<div id="page-supplements" class="page">
+  <div class="section-title">مکمل‌ها</div>
+  <div class="section-sub">بر اساس آزمایشات و شرایط بدنی</div>
+
+  <div class="divider-label">✅ الان مصرف میکنی</div>
+
+  <div class="supp-card">
+    <div class="supp-icon" style="background:#fef9c3">☀️</div>
+    <div>
+      <div class="supp-name">ویتامین D3 — 50,000 IU</div>
+      <div class="supp-dose">هفته‌ای یک قرص</div>
+      <div class="supp-timing">با وعده چرب (ناهار یا شام) — محلول در چربیه</div>
+      <div style="margin-top:6px"><span class="badge badge-green">الزامی — ستون فقرات</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card">
+    <div class="supp-icon" style="background:#dcfce7">🦴</div>
+    <div>
+      <div class="supp-name">کلسیم ۵۰۰ — ۲ عدد</div>
+      <div class="supp-dose">صبح ۱ عدد + شب ۱ عدد — با غذا</div>
+      <div class="supp-timing">PTH از ۴۴.۵ به ۱۲.۲ رسید — داره اثر میذاره ✅</div>
+      <div style="margin-top:6px"><span class="badge badge-green">الزامی</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card">
+    <div class="supp-icon" style="background:#dbeafe">💙</div>
+    <div>
+      <div class="supp-name">منیزیم — ۱ عدد</div>
+      <div class="supp-dose">شب قبل خواب</div>
+      <div class="supp-timing">ریکاوری، کیفیت خواب، آرامش عضلانی</div>
+      <div style="margin-top:6px"><span class="badge badge-green">الزامی</span></div>
+    </div>
+  </div>
+
+  <div class="divider-label">⭐ اضافه کن</div>
+
+  <div class="supp-card" style="border:2px solid var(--accent)">
+    <div class="supp-icon" style="background:var(--accent-light)">⚡</div>
+    <div>
+      <div class="supp-name" style="color:var(--accent)">کراتین مونوهیدرات</div>
+      <div class="supp-dose">۵ گرم روزانه — هر روز حتی استراحت</div>
+      <div class="supp-timing">بعد تمرین با آبمیوه طبیعی. روز استراحت هر وقت راحتی.</div>
+      <div style="margin-top:6px;font-size:12px;color:var(--text2)">📊 افزایش قدرت بالاتنه ۴.۴kg + پایین‌تنه ۱۱.۳kg</div>
+      <div style="margin-top:6px"><span class="badge badge-green">توصیه اول</span></div>
+    </div>
+  </div>
+
+  <div class="supp-card">
+    <div class="supp-icon" style="background:#f3e8ff">🥛</div>
+    <div>
+      <div class="supp-name">وی پروتئین (Whey Concentrate)</div>
+      <div class="supp-dose">۱ سرویس بعد تمرین</div>
+      <div class="supp-timing">بدون sucralose/aspartame بگیر — MyProtein Natural یا ON Natural</div>
+      <div style="margin-top:6px"><span class="badge badge-blue">اگه از غذا کم آوردی</span></div>
+    </div>
+  </div>
+
+  <div class="divider-label">❌ نیازی نیست</div>
+
+  <div class="supp-card" style="opacity:0.5">
+    <div class="supp-icon" style="background:var(--danger-light)">❌</div>
+    <div>
+      <div class="supp-name">Mass Gainer</div>
+      <div class="supp-dose">برای تو مناسب نیست</div>
+      <div class="supp-timing">پر از قند مصنوعیه. با هدف Body Recomposition تناقض داره.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MEDICAL PAGE ===== -->
+<div id="page-medical" class="page">
+  <div class="section-title">وضعیت پزشکی</div>
+  <div class="section-sub">بر اساس آزمایشات و تراکم‌سنجی</div>
+
+  <!-- Posture Alert -->
+  <div class="posture-card">
+    <div class="posture-title">⚠️ Anterior Pelvic Tilt (APT)</div>
+    <div class="posture-text">
+      از عکس‌های بدنت مشخص شد که لگنت به جلو افتاده. این با T-Score ستون فقرات منفی ۲.۵ مرتبطه و باید اصلاح بشه.<br><br>
+      <strong>راه‌حل:</strong> Dead Bug + پل باسن + کشش هیپ فلکسور — هر روز بعد از تمرین.
+    </div>
+  </div>
+
+  <!-- Bone Density -->
+  <div class="card">
+    <div class="card-title">🦴 تراکم استخوان DEXA — دی ۱۴۰۴</div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span style="font-size:13px">ستون فقرات L1-L4</span>
+        <span class="badge badge-red">T-Score: -2.5</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:50%;background:var(--danger)"></div></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span style="font-size:13px">فمور چپ</span>
+        <span class="badge badge-green">T-Score: -0.7</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:85%;background:var(--success)"></div></div>
+    </div>
+    <div class="alert alert-warning">
+      <span>💉</span>
+      <div>آمپول پرولیا (Denosumab) تجویز شده — ۶ ماهی یک بار تا ۳ سال. بعد از بهبود ویتامین D شروع کن.</div>
+    </div>
+  </div>
+
+  <!-- Lab Results -->
+  <div class="card">
+    <div class="card-title">🔬 مقایسه آزمایشات</div>
+    <div class="lab-row" style="font-weight:700;color:var(--text3)">
+      <div>شاخص</div><div style="text-align:center">دی ۱۴۰۴</div><div style="text-align:center">فروردین ۱۴۰۵</div>
+    </div>
+    <div class="lab-row"><div>ویتامین D</div><div style="text-align:center;color:var(--danger)">14 ⬇️</div><div style="text-align:center;color:var(--text3)">—</div></div>
+    <div class="lab-row"><div>روی</div><div style="text-align:center">85.3</div><div style="text-align:center;color:var(--success)">105 ✅</div></div>
+    <div class="lab-row"><div>منیزیم</div><div style="text-align:center">1.8</div><div style="text-align:center;color:var(--success)">2.2 ✅</div></div>
+    <div class="lab-row"><div>کلسیم</div><div style="text-align:center">9.8</div><div style="text-align:center;color:var(--success)">10.1 ✅</div></div>
+    <div class="lab-row"><div>فریتین</div><div style="text-align:center">51</div><div style="text-align:center;color:var(--success)">139 ✅</div></div>
+    <div class="lab-row"><div>تستوسترون</div><div style="text-align:center">4.1</div><div style="text-align:center;color:var(--success)">4.9 ✅</div></div>
+    <div class="lab-row"><div>PTH</div><div style="text-align:center;color:var(--warning)">44.5</div><div style="text-align:center;color:var(--success)">12.2 ✅</div></div>
+    <div class="lab-row"><div>TSH</div><div style="text-align:center">1.8</div><div style="text-align:center;color:var(--success)">0.6 ✅</div></div>
+  </div>
+
+  <!-- Forbidden Exercises -->
+  <div class="card">
+    <div class="card-title" style="color:var(--danger)">⛔ حرکات ممنوع</div>
+    <div class="meal-row"><span>ددلیفت هالتر سنگین</span><span class="badge badge-red">ممنوع</span></div>
+    <div class="meal-row"><span>اسکوات هالتر سنگین</span><span class="badge badge-red">ممنوع</span></div>
+    <div class="meal-row"><span>گودمورنینگ هالتر</span><span class="badge badge-red">ممنوع</span></div>
+    <div class="meal-row"><span>چرخش ستون فقرات زیر بار</span><span class="badge badge-red">ممنوع مطلق</span></div>
+    <div class="meal-row"><span>هر حرکت با درد کمر</span><span class="badge badge-red">فوری بایست</span></div>
+  </div>
+
+  <!-- Follow up -->
+  <div class="card">
+    <div class="card-title">📅 پیگیری پزشکی</div>
+    <div class="meal-row"><span>آزمایش ویتامین D</span><span class="badge badge-yellow">۳ ماه دیگه</span></div>
+    <div class="meal-row"><span>DEXA مجدد</span><span class="badge badge-yellow">۶ ماه دیگه</span></div>
+    <div class="meal-row"><span>آمپول پرولیا</span><span class="badge badge-red">مشورت با دکتر</span></div>
+    <div class="meal-row"><span>آزمایش کامل خون</span><span class="badge badge-blue">۶ ماه دیگه</span></div>
+  </div>
+</div>
+
+<!-- TIMER -->
+<div class="timer-overlay" id="timerOverlay">
+  <div class="timer-top">
+    <div class="timer-label">⏱ زمان استراحت</div>
+    <button class="timer-close" onclick="hideTimer()">✕</button>
+  </div>
+  <div class="timer-display" id="timerDisplay">01:30</div>
+  <div class="timer-progress"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+  <div class="timer-presets">
+    <button class="preset" onclick="setTimer(45)">۴۵s</button>
+    <button class="preset active-preset" onclick="setTimer(60)">۶۰s</button>
+    <button class="preset" onclick="setTimer(90)">۹۰s</button>
+    <button class="preset" onclick="setTimer(120)">۱۲۰s</button>
+  </div>
+  <div class="timer-btns">
+    <button class="t-btn t-start" id="timerBtn" onclick="toggleTimer()">شروع</button>
+    <button class="t-btn t-skip" onclick="hideTimer()">رد کن</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-item active" onclick="switchPage('home',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    <span>خانه</span>
+  </button>
+  <button class="nav-item" onclick="switchPage('program',this)">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>برنامه</span>
+  </button>
+  <button class="nav-item" onclick="switchPage('nutrition',this)">
+    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+    <span>تغذیه</span>
+  </button>
+  <button class="nav-item" onclick="switchPage('supplements',this)">
+    <svg viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3"/><circle cx="18" cy="18" r="3"/><path d="M18 15v6M15 18h6"/></svg>
+    <span>مکمل‌ها</span>
+  </button>
+  <button class="nav-item" onclick="switchPage('medical',this)">
+    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    <span>پزشکی</span>
+  </button>
+</nav>
+
+<script>
+// ========== DATA ==========
+const START_DATE = new Date('2026-06-21'); // شنبه ۳۰ خرداد ۱۴۰۵
+
+const PHASES = {
+  1:{name:'آداپتاسیون',weeks:'۱-۳',color:'#1d4ed8',sets:3,desc:'تمرکز روی فرم. وزنه‌ها سبک. ۳ ست برای هر حرکت. هدف: آشنایی مجدد بدن با تمرین.'},
+  2:{name:'هایپرتروفی',weeks:'۴-۸',color:'#15803d',sets:4,desc:'ست‌ها به ۴ رسیدن. هر هفته ۵-۱۰٪ وزنه اضافه کن. یه حرکت جدید برای هر عضله اضافه میشه.'},
+  3:{name:'اضافه‌بار',weeks:'۹-۱۰',color:'#dc2626',sets:4,desc:'دراپ‌ست آخرین ست هر حرکت. شدت بالاتر. وزنه‌ها سنگین‌تر.'},
+  4:{name:'دیلود',weeks:'۱۱',color:'#7e22ce',sets:2,desc:'وزنه‌ها ۵۰٪ کم میشن. بدن ریکاوری کامل میکنه. آماده چرخه بعدی.'}
+};
+
+// Phase-aware exercises
+function getExercises(week) {
+  const phase = getPhase(week);
+  
+  const base = {
+  saturday:[
+    {name:'پرس سینه دمبل — نیمکت صاف',muscle:'سینه بزرگ',sets:4,reps:'۶-۸',rest:90,
+     gif:'gifs/Dumbbell-Press.gif',
+     tips:['دمبل‌ها در امتداد سینه','آرنج‌ها ۴۵ درجه از بدن','در پایین‌ترین نقطه مکث کوتاه','کمر از نیمکت بلند نشه'],
+     warning:'از هالتر استفاده نکن — دمبل کنترل بهتری داره'},
+    {name:'پرس بالا سینه دمبل',muscle:'سینه فوقانی + دلتوئید قدامی',sets:3,reps:'۸-۱۰',rest:60,
+     gif:'gifs/Incline-Dumbbell-Press.gif',
+     tips:['زاویه نیمکت ۳۰ درجه — نه ۴۵','دمبل‌ها در یک راستا','انقباض عضله در بالا رو حس کن'],warning:null},
+    {name:'فلای سیم‌کش (پایین به بالا)',muscle:'سینه — تمرکز روی انقباض',sets:3,reps:'۱۲-۱۵',rest:60,
+     gif:'gifs/Cable-Crossover.gif',
+     tips:['آرنج کمی خم بمونه','در نقطه اوج انقباض رو حس کن','حرکت کنترل‌شده و آهسته'],warning:null},
+    {name:'زیربغل سیم‌کش دست باز',muscle:'لتیسیموس دورسی',sets:4,reps:'۸-۱۰',rest:90,
+     gif:'gifs/Lat-Pulldown.gif',
+     tips:['سینه به دستگاه','کشیدن با آرنج نه با دست','در پایین عضله رو فشرده کن','برگشت آهسته'],warning:null},
+    {name:'رویینگ تک‌دست دمبل',muscle:'پشت + بایسپس',sets:3,reps:'۸-۱۰',rest:60,
+     gif:'gifs/Dumbbell-Row.gif',
+     tips:['زانو و دست هم‌طرف روی نیمکت','کمر موازی زمین','آرنج رو کنار بدن نگه دار'],
+     warning:'هیچ چرخشی به ستون فقرات نده'},
+    {name:'فیس پول سیم‌کش',muscle:'دلتوئید خلفی + روتاتور کاف',sets:3,reps:'۱۵',rest:60,
+     gif:'gifs/Face-Pull.gif',
+     tips:['طناب رو به سمت صورت بکش','آرنج‌ها بالاتر از شانه','در انتها دست‌ها رو باز کن'],warning:null},
+    {name:'نشر از جانب دمبل',muscle:'دلتوئید میانی',sets:3,reps:'۱۲-۱۵',rest:60,
+     gif:'gifs/Dumbbell-Lateral-Raise.gif',
+     tips:['آرنج کمی خم','تا موازی زمین','برگشت آهسته ۳ ثانیه'],warning:null},
+    {name:'پلانک',muscle:'Core — ستون فقرات',sets:3,reps:'۴۵ ثانیه',rest:45,
+     gif:'gifs/body-saw-plank.gif',
+     tips:['بدن از سر تا پا یه خط صاف','شکم رو جمع کن','نفس عادی'],
+     warning:'اگه کمر درد گرفت فوری متوقف کن'}
+  ],
+  sunday:[
+    {name:'جلوران دستگاه — گرم کردن',muscle:'چهارسر',sets:2,reps:'۱۵',rest:45,
+     gif:'gifs/LEG-EXTENSION.gif',
+     tips:['سبک — برای گرم کردن زانوست','حرکت کامل و کنترل‌شده'],warning:null},
+    {name:'Goblet Squat دمبل',muscle:'چهارسر + باسن',sets:4,reps:'۸-۱۰',rest:90,
+     gif:'gifs/Heel-Elevated-Goblet-Squat.gif',
+     tips:['دمبل جلوی سینه','پاها عرض شانه','زانو در راستای پنجه','سینه رو به بالا نگه دار'],
+     warning:'جایگزین ایمن اسکوات هالتر برای ستون فقرات'},
+    {name:'پرس پا دستگاه',muscle:'چهارسر + همسترینگ + باسن',sets:4,reps:'۱۰-۱۲',rest:90,
+     gif:'gifs/Leg-Press.gif',
+     tips:['پا وسط صفحه','زانو از پنجه جلوتر نره','کمر به صندلی چسبیده'],
+     warning:'کمر رو از صندلی جدا نکن'},
+    {name:'لانج دمبل در جا',muscle:'چهارسر + باسن',sets:3,reps:'۱۲ هر پا',rest:60,
+     gif:'gifs/Dumbbell-Lunge.gif',
+     tips:['قدم بلند','زانو جلویی ۹۰ درجه','تنه صاف'],warning:null},
+    {name:'پشت‌ران دستگاه خوابیده',muscle:'همسترینگ',sets:4,reps:'۱۰-۱۲',rest:60,
+     gif:'gifs/Leg-Curl.gif',
+     tips:['لگن روی صندلی ثابت','در پایین مکث','برگشت کنترل‌شده'],warning:null},
+    {name:'ددلیفت رومانیایی دمبل',muscle:'همسترینگ + باسن',sets:3,reps:'۱۰-۱۲',rest:90,
+     gif:'gifs/Barbell-Romanian-Deadlift.gif',
+     tips:['هینج از هیپ نه از کمر','کمر کاملاً صاف','دمبل‌ها نزدیک به پا'],
+     warning:'جایگزین ایمن ددلیفت هالتر — کمر حتماً صاف'},
+    {name:'ساق پا ایستاده',muscle:'گاستروکنمیوس',sets:4,reps:'۱۵-۲۰',rest:45,
+     gif:'gifs/Bench-Press-Machine-Standing-Calf-Raise.gif',
+     tips:['حرکت کامل','در بالا یه ثانیه نگه دار','آهسته پایین بیا'],warning:null},
+    {name:'ساق پا نشسته',muscle:'سولئوس',sets:3,reps:'۱۵-۲۰',rest:45,
+     gif:'gifs/Lever-Seated-Calf-Raise.gif',
+     tips:['عضله عمقی ساق رو کار میده','حرکت کامل مهمه'],warning:null}
+  ],
+  tuesday:[
+    {name:'پرس سرشانه دمبل نشسته',muscle:'دلتوئید — هر سه سر',sets:4,reps:'۸-۱۰',rest:90,
+     gif:'gifs/Barbell-Shoulder-Press.gif',
+     tips:['پشتی صندلی ۸۵ درجه','دمبل‌ها کنار گوش','بالا رفتن کنترل‌شده'],warning:null},
+    {name:'نشر از جانب دمبل',muscle:'دلتوئید میانی',sets:4,reps:'۱۲-۱۵',rest:60,
+     gif:'gifs/Dumbbell-Lateral-Raise.gif',
+     tips:['آرنج کمی خم','موازی زمین','برگشت آهسته'],warning:null},
+    {name:'فلای معکوس دستگاه',muscle:'دلتوئید خلفی',sets:3,reps:'۱۲-۱۵',rest:60,
+     gif:'gifs/Rear-Delt-Machine-Flys.gif',
+     tips:['سرشانه خلفی اغلب نادیده گرفته میشه','انقباض در انتها مهمه'],warning:null},
+    {name:'شراگ دمبل',muscle:'تراپزیوس فوقانی',sets:4,reps:'۱۲-۱۵',rest:60,
+     gif:'gifs/Dumbbell-Shrug.gif',
+     tips:['شانه‌ها رو مستقیم بالا ببر','چرخش نده','در بالا یه ثانیه نگه دار'],warning:null},
+    {name:'زیربغل سیم‌کش V-Bar',muscle:'لتیسیموس + بایسپس',sets:4,reps:'۱۰-۱۲',rest:60,
+     gif:'gifs/Lat-Pulldown.gif',
+     tips:['تنه کمی به عقب','میله رو به سینه بکش','آرنج رو کنار بدن پایین بیار'],warning:null},
+    {name:'جلوبازو هالتر EZ',muscle:'بایسپس',sets:4,reps:'۱۰-۱۲',rest:60,
+     gif:'gifs/Z-Bar-Curl.gif',
+     tips:['آرنج کنار بدن ثابت','در بالا کامل انقباض','برگشت ۲-۳ ثانیه'],warning:null},
+    {name:'جلوبازو دمبل چکشی',muscle:'براکیالیس + بایسپس',sets:3,reps:'۱۲',rest:60,
+     gif:'gifs/Hammer-Curl.gif',
+     tips:['انگشت شست رو به بالا','آرنج ثابت','ضخامت بازو رو میده'],warning:null},
+    {name:'پشت‌بازو سیم‌کش طناب',muscle:'تری‌سپس',sets:4,reps:'۱۲',rest:60,
+     gif:'gifs/Rope-Pushdown.gif',
+     tips:['آرنج کنار بدن ثابت','فقط ساعد حرکت کنه','در پایین طناب رو باز کن'],warning:null},
+    {name:'اسکال کراشر EZ',muscle:'تری‌سپس — سر بلند',sets:3,reps:'۱۰-۱۲',rest:60,
+     gif:'gifs/Barbell-Lying-Back-of-the-Head-Tricep-Extension.gif',
+     tips:['آرنج عمود بر زمین','فقط ساعد پایین میاد'],
+     warning:'اگه درد آرنج داری سبک‌تر کن'}
+  ],
+  wednesday:[
+    {name:'ددلیفت رومانیایی دمبل',muscle:'همسترینگ + باسن',sets:4,reps:'۱۰-۱۲',rest:90,
+     gif:'gifs/Barbell-Romanian-Deadlift.gif',
+     tips:['این هفته سنگین‌تر از یکشنبه','هینج از هیپ','کمر صاف و سینه بیرون'],
+     warning:'فرم رو فدای وزنه نکن'},
+    {name:'پرس پا پا باز',muscle:'باسن + آداکتور',sets:4,reps:'۱۰-۱۲',rest:90,
+     gif:'gifs/Leg-Press.gif',
+     tips:['پاها بالای صفحه و باز','باسن رو بیشتر کار میده','کمر به صندلی چسبیده'],warning:null},
+    {name:'لانج معکوس دمبل',muscle:'چهارسر + باسن',sets:3,reps:'۱۲ هر پا',rest:60,
+     gif:'gifs/Dumbell-reverse-lunge.gif',
+     tips:['پا رو به عقب ببر','کنترل بیشتر از لانج رو به جلو','زانو جلویی از پنجه جلوتر نره'],warning:null},
+    {name:'هیپ تراست دمبل',muscle:'باسن بزرگ',sets:4,reps:'۱۵',rest:60,
+     gif:'gifs/Barbell-Hip-Thrust.gif',
+     tips:['کتف‌ها روی نیمکت','دمبل روی لگن','در بالا کامل باسن رو فشار بده','پایین آوردن آهسته'],warning:null},
+    {name:'پشت‌ران دستگاه نشسته',muscle:'همسترینگ',sets:3,reps:'۱۵',rest:45,
+     gif:'gifs/Seated-Leg-Curl.gif',
+     tips:['حرکت کامل تا انتها','در پایین یه ثانیه نگه دار'],warning:null},
+    {name:'پلانک',muscle:'Core',sets:3,reps:'۴۵ ثانیه',rest:45,
+     gif:'gifs/body-saw-plank.gif',
+     tips:['بدن یه خط صاف','شکم جمع'],
+     warning:'اگه کمر درد گرفت متوقف کن'},
+    {name:'Dead Bug — اصلاح APT',muscle:'Core عمقی',sets:3,reps:'۱۰ هر طرف',rest:45,
+     gif:'gifs/Dead-Bug.gif',
+     tips:['کمر کاملاً به زمین چسبیده','دست و پای مخالف همزمان','نفس بیرون بده موقع حرکت'],
+     warning:'اگه کمر از زمین جدا شد متوقف کن'},
+    {name:'پل باسن — Glute Bridge',muscle:'باسن + کمر تحتانی',sets:3,reps:'۱۵-۲۰',rest:45,
+     gif:'gifs/Dumbbell-Glute-Bridge.gif',
+     tips:['در بالا باسن رو فشار بده','پای محکم روی زمین'],warning:null},
+    {name:'کشش هیپ فلکسور',muscle:'هیپ فلکسور — اصلاح APT',sets:3,reps:'۳۰ ثانیه هر طرف',rest:30,
+     gif:'gifs/Kneeling-Hip-Flexor-Stretch.gif',
+     tips:['زانو روی زمین','لگن رو به جلو هل بده','کمر صاف'],warning:null},
+    {name:'ساق پا ایستاده',muscle:'ساق',sets:4,reps:'۱۵-۲۰',rest:45,
+     gif:'gifs/Bench-Press-Machine-Standing-Calf-Raise.gif',
+     tips:['حرکت کامل','در بالا نگه دار'],warning:null}
+  ]
+  };
+
+  // Phase 2 additions (weeks 4-8)
+  if(phase >= 2) {
+    // شنبه: پرس سینه دستگاه بعد از پرس بالا سینه (index 2)
+    base.saturday.splice(2, 0, {name:'پرس سینه دستگاه',muscle:'سینه — زاویه متفاوت',sets:3,reps:'۱۰-۱۲',rest:60,
+     gif:'gifs/Decline-Chest-Press-Machine.gif',
+     tips:['فشار بیشتری روی سینه میذاره','در بالا انقباض کامل','کمر به صندلی چسبیده'],warning:null});
+    // یکشنبه: هیپ ابداکتور بعد از ساق پا (قبل از آخر)
+    base.sunday.splice(base.sunday.length-1, 0, {name:'هیپ ابداکتور دستگاه',muscle:'آداکتور + باسن جانبی',sets:3,reps:'۱۵',rest:45,
+     gif:'gifs/Cable-Hip-Abduction.gif',
+     tips:['حرکت کنترل‌شده','در باز شدن کامل مکث کن'],warning:null});
+    // سه‌شنبه: جلوبازو کابل بعد از جلوبازو چکشی
+    base.tuesday.splice(7, 0, {name:'جلوبازو کابل',muscle:'بایسپس — انقباض مداوم',sets:3,reps:'۱۲-۱۵',rest:60,
+     gif:'gifs/cable-curl.gif',
+     tips:['کابل تنش مداوم ایجاد میکنه','آرنج ثابت','در بالا مکث کن'],warning:null});
+    // چهارشنبه: اسپلیت اسکوات بلغاری بعد از لانج معکوس
+    base.wednesday.splice(3, 0, {name:'اسپلیت اسکوات بلغاری',muscle:'چهارسر + باسن — یک‌طرفه',sets:3,reps:'۱۰ هر پا',rest:60,
+     gif:'gifs/Bodyweight-Bulgarian-Split-Squat.gif',
+     tips:['پای عقب روی نیمکت','تنه کمی به جلو','زانو جلویی از پنجه جلوتر نره'],warning:null});
+  }
+
+  // Phase 3 additions (weeks 9-10) - dropsets
+  if(phase >= 3) {
+    base.saturday = base.saturday.map((ex,i) => 
+      i===0 ? {...ex, dropset:true, reps:'۶-۸ + دراپ‌ست'} : ex);
+    base.tuesday = base.tuesday.map((ex,i) => 
+      i===0 ? {...ex, dropset:true, reps:'۸-۱۰ + دراپ‌ست'} : ex);
+    base.sunday = base.sunday.map((ex,i) => 
+      i===2 ? {...ex, dropset:true, reps:'۱۰-۱۲ + دراپ‌ست'} : ex);
+    base.wednesday = base.wednesday.map((ex,i) => 
+      i===0 ? {...ex, dropset:true, reps:'۱۰-۱۲ + دراپ‌ست'} : ex);
+  }
+
+  // Phase 4 - deload (reduce sets)
+  if(phase === 4) {
+    Object.keys(base).forEach(day => {
+      base[day] = base[day].map(ex => ({...ex, sets: Math.max(2, Math.floor(ex.sets * 0.5))}));
+    });
+  }
+
+  return base;
+}
+
+const WARMUPS = {
+  saturday:'۱۰ دقیقه: چرخش شانه + تردمیل سبک + ۱ ست سبک از اولین حرکت',
+  sunday:'۱۰ دقیقه: پل باسن ۱۵ تکرار + کشش هیپ فلکسور + چرخش ران',
+  tuesday:'۱۰ دقیقه: چرخش مچ + کشش سینه + چرخش شانه',
+  wednesday:'۱۰ دقیقه: Dead Bug ۵ تکرار + پل باسن ۱۵ تکرار + کشش هیپ'
+};
+
+const DAY_CONFIG = {
+  saturday:{title:'شنبه — Upper A',focus:'سینه + پشت + سرشانه',icon:'🔴',bg:'#fee2e2',key:'saturday'},
+  sunday:{title:'یکشنبه — Lower A',focus:'پا — چهارسر محور',icon:'🔵',bg:'#dbeafe',key:'sunday'},
+  monday:{title:'دوشنبه',focus:'استراحت — ریکاوری',icon:'😴',bg:'#f3f4f6',key:null},
+  tuesday:{title:'سه‌شنبه — Upper B',focus:'سرشانه + بازو + تراپ',icon:'🟡',bg:'#fef9c3',key:'tuesday'},
+  wednesday:{title:'چهارشنبه — Lower B',focus:'پا + Core + اصلاح APT',icon:'🟢',bg:'#dcfce7',key:'wednesday'},
+  rest:{title:'پنجشنبه-جمعه',focus:'استراحت — ریکاوری کامل',icon:'😴',bg:'#f3f4f6',key:null}
+};
+
+// ========== WEEK CALC ==========
+let currentWeek = 1;
+
+function getWeekNumber(){
+  const now = new Date();
+  // هفته از شنبه شروع میشه
+  const nowDay = now.getDay(); // 0=Sun, 6=Sat
+  const daysSinceSat = (nowDay === 6) ? 0 : (nowDay + 1);
+  const lastSat = new Date(now);
+  lastSat.setDate(now.getDate() - daysSinceSat);
+  lastSat.setHours(0,0,0,0);
+  const startSat = new Date(START_DATE);
+  startSat.setHours(0,0,0,0);
+  const diff = lastSat - startSat;
+  const weeks = Math.floor(diff/(7*24*60*60*1000))+1;
+  return Math.max(1,Math.min(11,weeks));
+}
+
+function getPhase(week){
+  if(week<=3)return 1;
+  if(week<=8)return 2;
+  if(week<=10)return 3;
+  return 4;
+}
+
+function getPhaseSets(week){
+  const phase = getPhase(week);
+  if(phase===1)return 3;
+  if(phase===4)return 2;
+  return 4;
+}
+
+// ========== TIMER ==========
+let timerInterval=null, timerTotal=90, timerLeft=90, timerRunning=false;
+
+function showTimer(seconds){
+  timerTotal=seconds; timerLeft=seconds; timerRunning=false;
+  updateTimerDisplay();
+  document.getElementById('timerOverlay').classList.add('show');
+  document.getElementById('timerBtn').textContent='شروع';
+  document.getElementById('timerBtn').className='t-btn t-start';
+}
+
+function hideTimer(){
+  clearInterval(timerInterval);
+  timerRunning=false;
+  document.getElementById('timerOverlay').classList.remove('show');
+}
+
+function toggleTimer(){
+  if(timerRunning){
+    clearInterval(timerInterval); timerRunning=false;
+    document.getElementById('timerBtn').textContent='ادامه';
+  } else {
+    timerRunning=true;
+    document.getElementById('timerBtn').textContent='توقف';
+    document.getElementById('timerBtn').className='t-btn t-skip';
+    timerInterval=setInterval(()=>{
+      timerLeft--;
+      updateTimerDisplay();
+      if(timerLeft<=0){
+        clearInterval(timerInterval); timerRunning=false;
+        document.getElementById('timerBtn').textContent='تمام! ✅';
+        try{const a=new AudioContext(),o=a.createOscillator();o.connect(a.destination);o.frequency.value=880;o.start();o.stop(a.currentTime+0.4);}catch(e){}
+        setTimeout(hideTimer,2000);
+      }
+    },1000);
+  }
+}
+
+function setTimer(s){timerTotal=s;timerLeft=s;updateTimerDisplay();}
+
+function updateTimerDisplay(){
+  const m=Math.floor(timerLeft/60).toString().padStart(2,'0');
+  const s=(timerLeft%60).toString().padStart(2,'0');
+  document.getElementById('timerDisplay').textContent=m+':'+s;
+  const pct=(timerLeft/timerTotal)*100;
+  document.getElementById('timerFill').style.width=pct+'%';
+  document.getElementById('timerFill').style.background=pct<30?'#dc2626':pct<60?'#f59e0b':'var(--accent)';
+}
+
+// ========== THEME ==========
+function toggleTheme(){
+  const d=document.body.classList.toggle('dark');
+  document.getElementById('themeBtn').textContent=d?'☀️ روشن':'🌙 تاریک';
+  try{localStorage.setItem('theme',d?'dark':'light');}catch(e){}
+}
+
+// ========== PAGES ==========
+function switchPage(name,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  el.classList.add('active');
+  hideTimer();
+  if(name==='program'){
+    document.getElementById('program-overview').style.display='block';
+    document.getElementById('workoutView').classList.remove('open');
+  }
+}
+
+// ========== HOME ==========
+function setupHome(){
+  const now=new Date();
+  const days=['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
+  const months=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+  // Shamsi date conversion
+  function toShamsi(date) {
+    const g2j = (gy, gm, gd) => {
+      let jy, jm, jd;
+      gy -= 1600; gm -= 1; gd -= 1;
+      let g_d_no = 365*gy + Math.floor((gy+3)/4) - Math.floor((gy+99)/100) + Math.floor((gy+399)/400);
+      for(let i=0; i<gm; ++i) g_d_no += [31,28+((gy%4==0&&gy%100!=0)||(gy+1600)%400==0?1:0),31,30,31,30,31,31,30,31,30,31][i];
+      g_d_no += gd;
+      let j_d_no = g_d_no - 79;
+      let j_np = Math.floor(j_d_no/12053); j_d_no %= 12053;
+      jy = 979 + 33*j_np + 4*Math.floor(j_d_no/1461);
+      j_d_no %= 1461;
+      if(j_d_no >= 366){ jy += Math.floor((j_d_no-1)/365); j_d_no = (j_d_no-1)%365; }
+      for(let i=0; i<11 && j_d_no >= [31,31,31,31,31,31,30,30,30,30,30][i]; ++i){ j_d_no -= [31,31,31,31,31,31,30,30,30,30,30][i]; jy += 0; jm=i+2; }
+      jm = jm||1; jd = j_d_no+1;
+      return {y:jy, m:jm, d:jd};
+    };
+    const s = g2j(date.getFullYear(), date.getMonth()+1, date.getDate());
+    const mNames = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+    return s.d + ' ' + mNames[s.m-1] + ' ' + s.y;
+  }
+  document.getElementById('headerDate').textContent = days[now.getDay()] + ' ' + toShamsi(now);
+
+  currentWeek=getWeekNumber();
+  const phase=getPhase(currentWeek);
+  const phaseData=PHASES[phase];
+
+  // Phase bar
+  [1,2,3,4].forEach(i=>{
+    const el=document.getElementById('ph'+i);
+    el.classList.toggle('current',i===phase);
+  });
+
+  document.getElementById('phaseDesc').innerHTML=`
+    <div class="phase-info-title">فاز ${phaseData.name} — هفته ${currentWeek}</div>
+    <div class="phase-info-text">${phaseData.desc}</div>
+  `;
+
+  // Today card
+  const dayNames=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+  const todayKey=dayNames[now.getDay()];
+  const workoutKeys={saturday:'saturday',sunday:'sunday',tuesday:'tuesday',wednesday:'wednesday'};
+  const todayCard=document.getElementById('todayCard');
+
+  if(workoutKeys[todayKey]){
+    const cfg=DAY_CONFIG[todayKey];
+    todayCard.innerHTML=`
+      <div class="today-card">
+        <div class="today-label">تمرین امروز</div>
+        <div class="today-title">${cfg.title}</div>
+        <div class="today-sub">${cfg.focus} • ۱۹:۳۰ تا ۲۱:۰۰</div>
+        <button class="start-btn" onclick="goToWorkout('${workoutKeys[todayKey]}')">
+          <span>🏋️</span> شروع تمرین
+        </button>
+      </div>
+    `;
+  } else {
+    todayCard.innerHTML=`
+      <div class="today-card" style="border-right-color:#9ca3af">
+        <div class="today-label">امروز</div>
+        <div class="today-title">روز استراحت 😴</div>
+        <div class="today-sub">ریکاوری هم بخشی از تمرینه</div>
+      </div>
+    `;
+  }
+
+  // Daily reminders
+  setupDailyReminders(todayKey);
+}
+
+function setupDailyReminders(dayKey){
+  const isTraining=['saturday','sunday','tuesday','wednesday'].includes(dayKey);
+  const reminders=isTraining?[
+    {time:'۰۷:۰۰',icon:'🍳',text:'صبحانه — ۳ تخم‌مرغ + ماست'},
+    {time:'۰۸:۰۰',icon:'🦴',text:'کلسیم صبح با غذا'},
+    {time:'۱۰:۰۰',icon:'💧',text:'یه لیوان آب بنوش'},
+    {time:'۱۲:۳۰',icon:'🍗',text:'ناهار — ۲۰۰g پروتئین'},
+    {time:'۱۴:۰۰',icon:'💧',text:'یه لیوان آب بنوش'},
+    {time:'۱۵:۰۰',icon:'🍎',text:'میوه + ۲ تخم‌مرغ'},
+    {time:'۱۶:۳۰',icon:'💧',text:'یه لیوان آب بنوش'},
+    {time:'۱۸:۰۰',icon:'🍌',text:'میان‌وعده — موز یا خرما'},
+    {time:'۱۸:۵۰',icon:'☕',text:'اسپرسو — ۴۰ دقیقه مونده به تمرین'},
+    {time:'۱۹:۳۰',icon:'🏋️',text:'تمرین شروع میشه!'},
+    {time:'۲۱:۰۰',icon:'⚡',text:'وی پروتئین + کراتین ۵g'},
+    {time:'۲۱:۳۰',icon:'💧',text:'آب بنوش — ریکاوری'},
+    {time:'۲۲:۰۰',icon:'🍽️',text:'شام'},
+    {time:'۲۳:۰۰',icon:'💊',text:'منیزیم قبل خواب'},
+  ]:[
+    {time:'۰۷:۰۰',icon:'🍳',text:'صبحانه — ۳ تخم‌مرغ + ماست'},
+    {time:'۰۸:۰۰',icon:'🦴',text:'کلسیم صبح با غذا'},
+    {time:'۱۰:۰۰',icon:'💧',text:'یه لیوان آب بنوش'},
+    {time:'۱۲:۳۰',icon:'🍗',text:'ناهار — ۲۰۰g پروتئین'},
+    {time:'۱۴:۰۰',icon:'💧',text:'یه لیوان آب بنوش'},
+    {time:'۱۵:۰۰',icon:'🍎',text:'میوه + استراحت فعال'},
+    {time:'۱۷:۰۰',icon:'💧',text:'یه لیوان آب بنوش'},
+    {time:'۱۹:۰۰',icon:'⚡',text:'کراتین ۵g — حتی روز استراحت'},
+    {time:'۲۱:۰۰',icon:'🍽️',text:'شام'},
+    {time:'۲۲:۰۰',icon:'💧',text:'آب قبل خواب'},
+    {time:'۲۳:۰۰',icon:'💊',text:'منیزیم قبل خواب'},
+  ];
+
+  const now=new Date();
+  const currentHour=now.getHours()*60+now.getMinutes();
+
+  const html=reminders.map(r=>{
+    const parts=r.time.replace('۰','0').replace('۱','1').replace('۲','2').replace('۳','3').replace('۴','4').replace('۵','5').replace('۶','6').replace('۷','7').replace('۸','8').replace('۹','9');
+    const timeParts=r.time.split(':');
+    const h=parseInt(timeParts[0].replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+    const m=parseInt(timeParts[1].replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+    const rMin=h*60+m;
+    const isPast=rMin<currentHour;
+    return `<div class="reminder-item" style="${isPast?'opacity:0.4':''}">
+      <div class="reminder-time">${r.time}</div>
+      <div class="reminder-icon">${r.icon}</div>
+      <div class="reminder-text">${r.text}</div>
+      ${isPast?'<span style="font-size:16px">✅</span>':''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('dailyReminders').innerHTML=html;
+}
+
+// ========== PROGRAM ==========
+function setupProgram(){
+  currentWeek=getWeekNumber();
+  updateWeekDisplay();
+}
+
+function updateWeekDisplay(){
+  const phase=getPhase(currentWeek);
+  const phaseData=PHASES[phase];
+  document.getElementById('weekNum').textContent='هفته '+toPersianNum(currentWeek);
+  document.getElementById('weekPhase').textContent='فاز '+phaseData.name;
+  document.getElementById('weekPhaseCard').innerHTML=`
+    <div class="phase-info-title">هفته ${toPersianNum(currentWeek)} — ${phaseData.name}</div>
+    <div class="phase-info-text">${phaseData.desc}<br><br><strong>تعداد ست هر حرکت: ${toPersianNum(getPhaseSets(currentWeek))} ست</strong></div>
+  `;
+
+  const dayList=document.getElementById('dayList');
+  const days=[
+    {cfg:DAY_CONFIG.saturday,key:'saturday'},
+    {cfg:DAY_CONFIG.sunday,key:'sunday'},
+    {cfg:DAY_CONFIG.monday,key:null},
+    {cfg:DAY_CONFIG.tuesday,key:'tuesday'},
+    {cfg:DAY_CONFIG.wednesday,key:'wednesday'},
+    {cfg:DAY_CONFIG.rest,key:null}
+  ];
+
+  dayList.innerHTML=days.map(({cfg,key})=>`
+    <div class="day-item ${key?'':'rest'}" ${key?`onclick="showWorkout('${key}')"`:''}>
+      <div class="day-icon" style="background:${cfg.bg}">${cfg.icon}</div>
+      <div class="day-content">
+        <div class="day-name">${cfg.title}</div>
+        <div class="day-focus">${cfg.focus}</div>
+      </div>
+      ${key?'<div class="day-arrow">←</div>':''}
+    </div>
+  `).join('');
+}
+
+function changeWeek(dir){
+  currentWeek=Math.max(1,Math.min(11,currentWeek+dir));
+  updateWeekDisplay();
+}
+
+function goToWorkout(key){
+  switchPage('program',document.querySelectorAll('.nav-item')[1]);
+  setTimeout(()=>showWorkout(key),100);
+}
+
+function showWorkout(key){
+  document.getElementById('program-overview').style.display='none';
+  const wv=document.getElementById('workoutView');
+  wv.classList.add('open');
+
+  const cfg=DAY_CONFIG[key];
+  const exs=getExercises(currentWeek)[key];
+  const sets=getPhaseSets(currentWeek);
+
+  let html=`
+    <div class="workout-header-card">
+      <div class="workout-day-title">${cfg.title}</div>
+      <div class="workout-day-sub">${cfg.focus} • هفته ${toPersianNum(currentWeek)}</div>
+      <div class="warmup-box">🔥 <strong>گرم کردن:</strong> ${WARMUPS[key]}</div>
+    </div>
+    <div class="alert alert-danger">
+      <span>⚠️</span>
+      <div><strong>یادآوری:</strong> T-Score ستون فقرات -2.5. هیچ حرکتی با درد کمر ادامه نده. فرم اولویت اول.</div>
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--text3);margin-bottom:10px">${exs.length} حرکت — روی هر حرکت کلیک کن</div>
+  `;
+
+  exs.forEach((ex,i)=>{
+    const actualSets=ex.reps.includes('ثانیه')||ex.reps.includes('طرف')?ex.sets:Math.min(ex.sets,sets);
+    html+=`
+      <div class="ex-item" id="ex-${key}-${i}">
+        <div class="ex-header" onclick="toggleEx('${key}',${i})">
+          <div class="ex-num">${i+1}</div>
+          <div class="ex-info">
+            <div class="ex-name">${ex.name}</div>
+            <div class="ex-meta">
+              <span>📦 ${toPersianNum(actualSets)} ست</span>
+              <span>🔄 ${ex.reps}</span>${ex.dropset?'<span style="color:var(--danger);font-weight:700">🔥 دراپ‌ست</span>':''}
+              <span>⏱ ${toPersianNum(ex.rest)}s</span>
+            </div>
+          </div>
+          <div class="ex-chevron">⌄</div>
+        </div>
+        <div class="ex-detail">
+          <div class="ex-muscle">💪 <strong>عضله هدف:</strong> ${ex.muscle}</div>
+          ${ex.warning?`<div class="alert alert-warning"><span>⚠️</span><span style="font-size:12px">${ex.warning}</span></div>`:''}
+          <div class="gif-container">
+            <img src="${ex.gif}" alt="${ex.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=gif-loading>تصویر در دسترس نیست<br>لطفاً در YouTube جستجو کنید</div>'">
+          </div>
+          <div class="tips-section">
+            <div class="tips-title">نکات اجرا</div>
+            ${ex.tips.map(t=>`<div class="tip-item">${t}</div>`).join('')}
+          </div>
+          <button class="rest-btn" onclick="showTimer(${ex.rest})">
+            ⏱ شروع تایمر استراحت (${toPersianNum(ex.rest)} ثانیه)
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  html+=`
+    <button class="missed-btn" onclick="missedWorkout()">❌ امروز نرفتم باشگاه</button>
+    <button class="complete-workout-btn" onclick="completeWorkout('${cfg.title}')">✅ تمرین امروز تمام شد!</button>
+  `;
+
+  document.getElementById('workoutContent').innerHTML=html;
+}
+
+function toggleEx(key,i){
+  const el=document.getElementById(`ex-${key}-${i}`);
+  el.classList.toggle('open');
+}
+
+function backToProgram(){
+  document.getElementById('program-overview').style.display='block';
+  document.getElementById('workoutView').classList.remove('open');
+  hideTimer();
+  history.pushState({page:'program-overview'}, '');
+}
+
+function completeWorkout(title){
+  try{
+    const log=JSON.parse(localStorage.getItem('workoutLog')||'[]');
+    log.push({title,date:new Date().toISOString(),week:currentWeek});
+    localStorage.setItem('workoutLog',JSON.stringify(log));
+  }catch(e){}
+  alert(`آفرین سعید! 💪\n"${title}"\nبا موفقیت ثبت شد!`);
+  backToProgram();
+}
+
+function missedWorkout(){
+  const msg=`باشه، مشکلی نیست! 💪\n\nبرای روز از دست رفته:\n\n` +
+    `• اگه فردا وقت داری، همین تمرین رو فردا انجام بده\n` +
+    `• اگه نمیتونی، هفته رو با بقیه روزها ادامه بده\n` +
+    `• بیشتر از ۱ جلسه رو جبران نکن — ریکاوری مهمه\n\n` +
+    `یه جلسه از دست رفته هیچ چیزی رو خراب نمیکنه!`;
+  alert(msg);
+}
+
+// ========== NOTIFICATIONS ==========
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDQ3ZAXlrqghUH_VDodqOjSD7KlSFv6MNw",
+  authDomain: "fitpro-saeid.firebaseapp.com",
+  projectId: "fitpro-saeid",
+  storageBucket: "fitpro-saeid.firebasestorage.app",
+  messagingSenderId: "796877557603",
+  appId: "1:796877557603:web:586042046eee36278e0d56"
+};
+
+const VAPID_KEY = "BCn8UqiubBuqYW-B_5Sg_9acFn_0YORm1NLNTlriwFK1lKnMbRJgNk8oYYow8ggfMYAh3TzKcoX8zuxuI7d8swI";
+const SERVER_URL = "https://fitpro-server-sofe.onrender.com";
+
+let firebaseApp, messaging;
+
+async function initFirebase() {
+  try {
+    firebaseApp = firebase.initializeApp(firebaseConfig);
+    messaging = firebase.messaging();
+    console.log('Firebase initialized');
+  } catch(e) {
+    console.log('Firebase init error:', e);
+  }
+}
+
+async function requestNotif(){
+  if(!('Notification' in window)){
+    alert('مرورگر شما از نوتیفیکیشن پشتیبانی نمیکنه');
+    return;
+  }
+  
+  try {
+    const perm = await Notification.requestPermission();
+    if(perm === 'granted'){
+      document.getElementById('notifCard').classList.remove('show');
+      
+      // Register Firebase SW
+      const swReg = await navigator.serviceWorker.register('/MY-GYM/firebase-messaging-sw.js');
+      
+      if(!messaging) await initFirebase();
+      
+      // Get FCM token
+      const token = await messaging.getToken({
+        vapidKey: VAPID_KEY,
+        serviceWorkerRegistration: swReg
+      });
+      
+      if(token) {
+        // Send token to server
+        await fetch(SERVER_URL + '/save-token', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({token})
+        });
+        
+        try { localStorage.setItem('fcm_token', token); } catch(e){}
+        alert('✅ یادآوری‌ها فعال شدن!\n\nاز این به بعد حتی وقتی اپ بسته‌ست نوتیف میاد.');
+      }
+    }
+  } catch(e) {
+    console.error('Notification error:', e);
+    alert('خطا در فعال کردن نوتیف: ' + e.message);
+  }
+}
+
+function scheduleNotifications(){ /* handled by server */ }
+
+// ========== HELPERS ==========
+function toPersianNum(n){
+  return n.toString().replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+
+// ========== INIT ==========
+(function init(){
+  // Load theme
+  try{
+    const t=localStorage.getItem('theme');
+    if(t==='dark'){document.body.classList.add('dark');document.getElementById('themeBtn').textContent='☀️ روشن';}
+  }catch(e){}
+
+  // Load week
+  try{
+    const w=parseInt(localStorage.getItem('currentWeek'));
+    if(w&&w>=1&&w<=11)currentWeek=w;
+    else currentWeek=getWeekNumber();
+  }catch(e){currentWeek=getWeekNumber();}
+
+  // Check notification permission
+  if('Notification' in window && Notification.permission==='default'){
+    document.getElementById('notifCard').classList.add('show');
+  }
+
+  // Register service worker
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/MY-GYM/sw.js').catch(()=>{});
+  }
+
+  // Init Firebase
+  initFirebase();
+
+  // Re-register token if exists
+  try {
+    const savedToken = localStorage.getItem('fcm_token');
+    if(savedToken && Notification.permission === 'granted') {
+      fetch(SERVER_URL + '/save-token', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({token: savedToken})
+      }).catch(()=>{});
+    }
+  } catch(e) {}
+
+  // Back button handler
+  history.pushState({page:'home'}, '');
+  window.addEventListener('popstate', (e) => {
+    const wv = document.getElementById('workoutView');
+    if(wv.classList.contains('open')) {
+      backToProgram();
+      history.pushState({page:'program'}, '');
+    } else {
+      history.pushState({page:'home'}, '');
+    }
+  });
+
+  setupHome();
+  setupProgram();
+})();
+</script>
+</body>
+</html>
